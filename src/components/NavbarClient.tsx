@@ -1,10 +1,46 @@
-import Link from 'next/link'
-import NavbarClient from './NavbarClient'
+'use client'
 
-export default async function Navbar() {
-  // Move auth check to client component to avoid server-side failures
-  // This ensures the navbar always renders even if Supabase is unavailable
-  return <NavbarClient />
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { createClient } from '@/lib/supabase/client'
+import LogoutButton from './LogoutButton'
+import type { User } from '@supabase/supabase-js'
+
+export default function NavbarClient() {
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function checkUser() {
+      try {
+        const supabase = createClient()
+        const {
+          data: { user: currentUser },
+        } = await supabase.auth.getUser()
+        setUser(currentUser)
+      } catch (error) {
+        // Silently handle errors - just show logged out state
+        console.warn('Navbar: Could not fetch user:', error)
+        setUser(null)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    checkUser()
+
+    // Listen for auth state changes
+    const supabase = createClient()
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [])
 
   return (
     <nav className="border-b border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800">
@@ -35,7 +71,9 @@ export default async function Navbar() {
 
           {/* Navigation Links */}
           <div className="flex items-center gap-4">
-            {user ? (
+            {loading ? (
+              <div className="h-6 w-6 animate-pulse rounded bg-slate-200 dark:bg-slate-700" />
+            ) : user ? (
               <>
                 <Link
                   href="/dashboard"
