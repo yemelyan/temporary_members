@@ -4,6 +4,8 @@ import AdminUserList from '@/components/AdminUserList'
 import AdminTabs from '@/components/AdminTabs'
 import AdminDashboard from '@/components/AdminDashboard'
 
+export const runtime = 'edge'
+
 export default async function AdminPage() {
   const supabase = await createClient()
   const {

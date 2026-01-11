@@ -2,6 +2,8 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect, notFound } from 'next/navigation'
 import ContentDetail from '@/components/ContentDetail'
 
+export const runtime = 'edge'
+
 interface PageProps {
   params: Promise<{ id: string }>
 }

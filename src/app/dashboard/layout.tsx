@@ -2,6 +2,8 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import LogoutButton from '@/components/LogoutButton'
 
+export const runtime = 'edge'
+
 export default async function DashboardLayout({
   children,
 }: {
