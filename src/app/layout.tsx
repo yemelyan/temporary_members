@@ -15,6 +15,8 @@ export const metadata: Metadata = {
     "Own property together with a structured, transparent platform that makes co-ownership easy. Pool resources, share ownership, and build wealth as a community.",
 };
 
+export const runtime = 'edge'
+
 export default function RootLayout({
   children,
 }: Readonly<{
