@@ -1,6 +1,7 @@
 /**
  * Validates that required environment variables are set
  * Throws helpful error messages if variables are missing
+ * During build time (like on Cloudflare Pages), env vars may not be available yet
  */
 export function validateEnv() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -16,11 +17,29 @@ export function validateEnv() {
     missing.push('NEXT_PUBLIC_SUPABASE_ANON_KEY')
   }
 
+  // During build/static generation, env vars might not be available
+  // Allow build to proceed, but throw at runtime if missing
   if (missing.length > 0) {
+    const isBuildTime = process.env.NODE_ENV === 'production' && 
+                        (process.env.VERCEL || process.env.CF_PAGES)
+    
+    if (isBuildTime) {
+      // During build, return empty strings - they'll be available at runtime
+      console.warn(
+        `Warning: Environment variables ${missing.join(', ')} not available during build. ` +
+        `They should be available at runtime.`
+      )
+      return {
+        supabaseUrl: supabaseUrl || '',
+        supabaseAnonKey: supabaseAnonKey || '',
+      }
+    }
+    
+    // At runtime, throw error if still missing
     throw new Error(
       `Missing required environment variables: ${missing.join(', ')}\n` +
-        `Please create a .env.local file in the project root with these variables.\n` +
-        `You can copy .env.local.example and update it with your Supabase credentials.`
+        `Please ensure these variables are set in your deployment environment.\n` +
+        `For Cloudflare Pages, add them in Settings → Environment Variables.`
     )
   }
 
