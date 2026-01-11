@@ -3,10 +3,17 @@ import { createClient } from '@/lib/supabase/server'
 import LogoutButton from './LogoutButton'
 
 export default async function Navbar() {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  // Handle auth state gracefully - don't fail if Supabase is unavailable
+  let user = null
+  try {
+    const supabase = await createClient()
+    const { data } = await supabase.auth.getUser()
+    user = data?.user ?? null
+  } catch (error) {
+    // If environment variables are missing or Supabase is unavailable,
+    // just show the logged-out state
+    console.warn('Navbar: Could not fetch user:', error instanceof Error ? error.message : 'Unknown error')
+  }
 
   return (
     <nav className="border-b border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800">

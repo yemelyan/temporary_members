@@ -18,7 +18,8 @@ export function validateEnv() {
   }
 
   // During build/static generation, env vars might not be available
-  // Allow build to proceed, but throw at runtime if missing
+  // On Cloudflare Pages, env vars should be available at runtime
+  // Return empty strings gracefully instead of throwing to prevent server errors
   if (missing.length > 0) {
     const isBuildTime = process.env.NODE_ENV === 'production' && 
                         (process.env.VERCEL || process.env.CF_PAGES)
@@ -29,18 +30,19 @@ export function validateEnv() {
         `Warning: Environment variables ${missing.join(', ')} not available during build. ` +
         `They should be available at runtime.`
       )
-      return {
-        supabaseUrl: supabaseUrl || '',
-        supabaseAnonKey: supabaseAnonKey || '',
-      }
+    } else {
+      // At runtime, log warning but don't throw - allow app to continue
+      // This prevents internal server errors if env vars aren't configured yet
+      console.warn(
+        `Warning: Environment variables ${missing.join(', ')} are missing. ` +
+        `Some features may not work. Please add them in Cloudflare Pages Settings.`
+      )
     }
     
-    // At runtime, throw error if still missing
-    throw new Error(
-      `Missing required environment variables: ${missing.join(', ')}\n` +
-        `Please ensure these variables are set in your deployment environment.\n` +
-        `For Cloudflare Pages, add them in Settings → Environment Variables.`
-    )
+    return {
+      supabaseUrl: supabaseUrl || '',
+      supabaseAnonKey: supabaseAnonKey || '',
+    }
   }
 
   return {

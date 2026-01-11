@@ -4,6 +4,15 @@ import { validateEnv } from '@/lib/env'
 
 export async function createClient() {
   const { supabaseUrl, supabaseAnonKey } = validateEnv()
+  
+  // Validate that we have required values before creating client
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error(
+      'Supabase configuration is missing. Please ensure NEXT_PUBLIC_SUPABASE_URL ' +
+      'and NEXT_PUBLIC_SUPABASE_ANON_KEY are set in your environment variables.'
+    )
+  }
+  
   const cookieStore = await cookies()
 
   return createServerClient(supabaseUrl, supabaseAnonKey, {
