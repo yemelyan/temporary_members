@@ -1,7 +1,6 @@
 import Link from 'next/link'
 
-export const runtime = 'edge'
-
+// Landing page doesn't need edge runtime - it's static
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">

@@ -15,8 +15,9 @@ export const metadata: Metadata = {
     "Own property together with a structured, transparent platform that makes co-ownership easy. Pool resources, share ownership, and build wealth as a community.",
 };
 
-export const runtime = 'edge'
-
+// Note: Root layout with edge runtime may have compatibility issues
+// Removing edge runtime from root layout to ensure it works
+// Individual pages can still use edge runtime if needed
 export default function RootLayout({
   children,
 }: Readonly<{
