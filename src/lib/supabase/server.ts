@@ -1,17 +1,10 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
-import { validateEnv } from '@/lib/env'
 
 export async function createClient() {
-  const { supabaseUrl, supabaseAnonKey } = validateEnv()
-  
-  // Validate that we have required values before creating client
-  if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error(
-      'Supabase configuration is missing. Please ensure NEXT_PUBLIC_SUPABASE_URL ' +
-      'and NEXT_PUBLIC_SUPABASE_ANON_KEY are set in your environment variables.'
-    )
-  }
+  // TEMPORARY: Hardcoded for debugging Cloudflare deployment
+  const supabaseUrl = 'https://kcrmwtjqjcqpqacukxxu.supabase.co'
+  const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtjcm13dGpxamNxcHFhY3VreHh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgxNDk4NTQsImV4cCI6MjA4MzcyNTg1NH0.ftSkO8yg6LN1Zkhs3b9NnneS-CN2YHvsZi1ZjDHngzA'
   
   const cookieStore = await cookies()
 
