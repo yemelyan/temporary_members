@@ -4,3 +4,8 @@ compatibility_flags = ["nodejs_compat"]
 
 # Pages configuration
 pages_build_output_dir = ".vercel/output/static"
+
+# Environment variables for build time
+# Note: These are PUBLIC variables (NEXT_PUBLIC_*) and will be embedded in client bundle
+# For Cloudflare Pages, these should be set in the dashboard under "Variables and Secrets"
+# as "Variables" (not "Secrets") so they're available during build time

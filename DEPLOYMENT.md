@@ -8,13 +8,27 @@
 
 ## Environment Variables
 
+**IMPORTANT:** These are PUBLIC variables (not secrets) and must be available at BUILD TIME.
+
 Configure the following environment variables in Cloudflare Pages dashboard:
 
-1. Go to Cloudflare Pages → Your Project → Settings → Environment Variables
-2. Add the following variables for both Production and Preview:
+1. Go to Cloudflare Pages → Your Project → Settings → Build → Variables and Secrets
+2. Click "Add variable" (NOT "Add secret")
+3. Add the following variables for both Production and Preview:
 
-   - `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anonymous key
+   - **Variable name:** `NEXT_PUBLIC_SUPABASE_URL`
+     - **Type:** Variable (NOT Secret)
+     - **Value:** `https://kcrmwtjqjcqpqacukxxu.supabase.co`
+   
+   - **Variable name:** `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+     - **Type:** Variable (NOT Secret)
+     - **Value:** `sb_publishable_30I0nwKqRPZ87jUPnXK3CQ_h7Ccxlma`
+
+**Why Variables, not Secrets?**
+- These are `NEXT_PUBLIC_*` variables, meaning they're embedded in the client-side JavaScript bundle
+- They're meant to be public (the "anon" key is the public/anonymous key)
+- They MUST be available during the build process for Next.js to embed them
+- Secrets are encrypted and only available at runtime, which won't work for `NEXT_PUBLIC_*` variables
 
 ## Build Configuration
 
