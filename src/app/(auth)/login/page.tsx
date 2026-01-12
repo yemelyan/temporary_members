@@ -1,7 +1,5 @@
 'use client'
 
-export const runtime = 'edge'
-
 import { useState, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -24,6 +22,14 @@ export default function LoginPage() {
 
     try {
       const supabase = createClient()
+      
+      // Check if Supabase is properly configured
+      if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+        setError('Authentication is not configured. Please contact support.')
+        setIsLoading(false)
+        return
+      }
+      
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -37,7 +43,12 @@ export default function LoginPage() {
       router.push('/dashboard')
       router.refresh()
     } catch (err) {
-      setError('An unexpected error occurred. Please try again.')
+      console.error('Login error:', err)
+      setError(
+        err instanceof Error && err.message.includes('Supabase')
+          ? 'Authentication service is unavailable. Please try again later.'
+          : 'An unexpected error occurred. Please try again.'
+      )
     } finally {
       setIsLoading(false)
     }

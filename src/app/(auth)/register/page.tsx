@@ -1,7 +1,5 @@
 'use client'
 
-export const runtime = 'edge'
-
 import { useState, FormEvent } from 'react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
@@ -24,6 +22,14 @@ export default function RegisterPage() {
 
     try {
       const supabase = createClient()
+      
+      // Check if Supabase is properly configured
+      if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+        setError('Registration is not configured. Please contact support.')
+        setIsLoading(false)
+        return
+      }
+      
       const signUpResponse = await supabase.auth.signUp({
         email,
         password,

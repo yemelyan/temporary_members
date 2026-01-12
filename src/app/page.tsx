@@ -8,13 +8,13 @@ export default function Home() {
       <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-slate-50 py-20 sm:py-32 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl md:text-6xl dark:text-slate-50">
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl md:text-6xl dark:text-white">
               Collective Real Estate Ownership
               <span className="block text-blue-600 dark:text-blue-400">
                 Made Simple
               </span>
             </h1>
-            <p className="mt-6 text-lg leading-8 text-slate-600 sm:text-xl dark:text-slate-300">
+            <p className="mt-6 text-lg leading-8 text-slate-700 sm:text-xl dark:text-slate-200">
               Own property together with a structured, transparent platform that
               makes co-ownership easy. Pool resources, share ownership, and build
               wealth as a community.
@@ -41,10 +41,10 @@ export default function Home() {
       <section id="features" className="py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-slate-50">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
               Why Choose Collective Ownership?
             </h2>
-            <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
+            <p className="mt-4 text-lg text-slate-700 dark:text-slate-200">
               A platform designed to make property co-ownership accessible,
               transparent, and simple.
             </p>
@@ -163,10 +163,10 @@ export default function Home() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-slate-50">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
               How It Works
             </h2>
-            <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
+            <p className="mt-4 text-lg text-slate-700 dark:text-slate-200">
               Getting started with collective ownership is simple and
               straightforward.
             </p>
@@ -174,13 +174,13 @@ export default function Home() {
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
             <dl className="grid max-w-xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-3 lg:gap-16">
               <div className="flex flex-col text-center">
-                <dt className="text-base font-semibold leading-7 text-slate-900 dark:text-slate-50">
+                <dt className="text-base font-semibold leading-7 text-slate-900 dark:text-white">
                   <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-2xl font-bold text-white shadow-lg">
                     1
                   </div>
                   Form Group
                 </dt>
-                <dd className="mt-2 flex flex-auto flex-col text-base leading-7 text-slate-600 dark:text-slate-400">
+                <dd className="mt-2 flex flex-auto flex-col text-base leading-7 text-slate-700 dark:text-slate-200">
                   <p className="flex-auto">
                     Join or create a group of co-owners. Our platform helps you
                     find like-minded investors or connect with existing groups.
@@ -189,13 +189,13 @@ export default function Home() {
               </div>
 
               <div className="flex flex-col text-center">
-                <dt className="text-base font-semibold leading-7 text-slate-900 dark:text-slate-50">
+                <dt className="text-base font-semibold leading-7 text-slate-900 dark:text-white">
                   <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-2xl font-bold text-white shadow-lg">
                     2
                   </div>
                   Find Property
                 </dt>
-                <dd className="mt-2 flex flex-auto flex-col text-base leading-7 text-slate-600 dark:text-slate-400">
+                <dd className="mt-2 flex flex-auto flex-col text-base leading-7 text-slate-700 dark:text-slate-200">
                   <p className="flex-auto">
                     Browse and evaluate property opportunities together. Access
                     listings, share insights, and make informed decisions as a
@@ -205,13 +205,13 @@ export default function Home() {
               </div>
 
               <div className="flex flex-col text-center">
-                <dt className="text-base font-semibold leading-7 text-slate-900 dark:text-slate-50">
+                <dt className="text-base font-semibold leading-7 text-slate-900 dark:text-white">
                   <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-2xl font-bold text-white shadow-lg">
                     3
                   </div>
                   Co-Own
                 </dt>
-                <dd className="mt-2 flex flex-auto flex-col text-base leading-7 text-slate-600 dark:text-slate-400">
+                <dd className="mt-2 flex flex-auto flex-col text-base leading-7 text-slate-700 dark:text-slate-200">
                   <p className="flex-auto">
                     Complete the purchase together with structured agreements.
                     Manage ownership, expenses, and decisions through our

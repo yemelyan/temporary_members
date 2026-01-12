@@ -14,32 +14,20 @@ export default function NavbarClient() {
     async function checkUser() {
       try {
         // Check if env vars are available before trying to use Supabase
-        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-        if (!supabaseUrl || !supabaseAnonKey) {
-          // Environment variables not available - skip auth check
-          console.warn('Navbar: Supabase environment variables not available')
+        if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
           setUser(null)
           setLoading(false)
           return
         }
-
+        
         const supabase = createClient()
         const {
           data: { user: currentUser },
-          error,
         } = await supabase.auth.getUser()
-
-        if (error) {
-          console.warn('Navbar: Could not fetch user:', error.message)
-          setUser(null)
-        } else {
-          setUser(currentUser)
-        }
+        setUser(currentUser)
       } catch (error) {
         // Silently handle errors - just show logged out state
-        console.warn('Navbar: Could not fetch user:', error instanceof Error ? error.message : 'Unknown error')
+        console.warn('Navbar: Could not fetch user:', error)
         setUser(null)
       } finally {
         setLoading(false)
@@ -49,11 +37,8 @@ export default function NavbarClient() {
     checkUser()
 
     // Only set up auth listener if env vars are available
-    try {
-      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-      const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-      if (supabaseUrl && supabaseAnonKey) {
+    if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      try {
         const supabase = createClient()
         const {
           data: { subscription },
@@ -64,10 +49,10 @@ export default function NavbarClient() {
         return () => {
           subscription.unsubscribe()
         }
+      } catch (error) {
+        // Ignore errors setting up listener
+        console.warn('Navbar: Could not set up auth listener:', error)
       }
-    } catch (error) {
-      // Ignore errors in listener setup
-      console.warn('Navbar: Could not set up auth listener:', error)
     }
   }, [])
 
