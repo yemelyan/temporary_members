@@ -18,11 +18,12 @@ Configure the following environment variables in Cloudflare Pages dashboard:
 
    - **Variable name:** `NEXT_PUBLIC_SUPABASE_URL`
      - **Type:** Variable (NOT Secret)
-     - **Value:** `https://kcrmwtjqjcqpqacukxxu.supabase.co`
+     - **Value:** Your Supabase project URL (e.g., `https://your-project.supabase.co`)
    
    - **Variable name:** `NEXT_PUBLIC_SUPABASE_ANON_KEY`
      - **Type:** Variable (NOT Secret)
-     - **Value:** `sb_publishable_30I0nwKqRPZ87jUPnXK3CQ_h7Ccxlma`
+     - **Value:** Your Supabase anon key (JWT token starting with `eyJhbGci...`)
+     - **Note:** Get this from Supabase Dashboard → Settings → API → Legacy anon key
 
 **Why Variables, not Secrets?**
 - These are `NEXT_PUBLIC_*` variables, meaning they're embedded in the client-side JavaScript bundle
